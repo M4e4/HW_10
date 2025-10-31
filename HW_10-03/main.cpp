@@ -8,7 +8,22 @@ public:
 	unique_ptr(const unique_ptr&) = delete;
 	~unique_ptr() { delete ptr; }
 
-	T& operator*() { return *ptr; }
+	T& operator*() 
+	{ 
+		if (!ptr) throw std::runtime_error("Error: null pointer access");
+		return *ptr;
+	}
+
+	T* operator->()
+	{
+		if (!ptr) throw std::runtime_error("Error: null pointer access");
+		return ptr;
+	}
+
+	T* get()
+	{
+		return ptr;
+	}
 
 	T* release()
 	{
